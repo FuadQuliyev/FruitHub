@@ -1,6 +1,7 @@
 package com.example.fruithub.controller;
 
 
+import com.example.fruithub.dto.AuthLogin;
 import com.example.fruithub.dto.AuthResponse;
 import com.example.fruithub.dto.AuthSignUp;
 import com.example.fruithub.service.UserService;
@@ -22,4 +23,8 @@ public class AuthController {
         return userService.signUp(userDto);
     }
 
+    @PostMapping("/login")
+    public AuthResponse Login(@RequestBody AuthLogin userDto) throws Exception {
+        return userService.login(userDto);
+    }
 }

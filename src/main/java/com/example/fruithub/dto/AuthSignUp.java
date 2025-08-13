@@ -2,6 +2,8 @@ package com.example.fruithub.dto;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -11,4 +13,5 @@ public class AuthSignUp {
     private String password;
     private String confirmPassword;
     private boolean rememberPassword;
+    private UUID statusUuid;
 }

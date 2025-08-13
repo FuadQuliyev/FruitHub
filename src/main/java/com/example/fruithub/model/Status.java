@@ -1,7 +1,6 @@
 package com.example.fruithub.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,38 +8,37 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-@Table(name = "users")
-public class User {
-
+@Table(name = "statuses")
+public class Status {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "uuid", updatable = false, nullable = false)
     private UUID uuid;
 
-    @Email(message = "Email düzgün formatda olmalıdır")
-    @NotBlank(message = "Email boş ola bilməz")
+    @NotBlank(message = "Status boş ola bilməz")
     @Column(nullable = false, unique = true)
-    private String email;
+    private String name;
 
-    @NotNull
-    private String password;
+    private String text;
 
     @NotNull
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-    @ManyToOne
-    @JoinColumn(name = "statusUuid", nullable = false)
-    private Status status;
+    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    private List<User> users = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
@@ -52,5 +50,4 @@ public class User {
     protected void onUpdate() {
         updateDate = LocalDateTime.now();
     }
-
 }
