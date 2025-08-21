@@ -1,8 +1,7 @@
 package com.example.fruithub.model;
 
+
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,42 +13,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "statuses")
-public class Status {
+@Builder
+@Table(name="categories")
+public class Category {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "uuid", updatable = false, nullable = false)
     private UUID uuid;
 
-    @NotBlank(message = "Status boş ola bilməz")
-    @Column(nullable = false, unique = true)
     private String name;
-
-    private String text;
-
-    @NotNull
+    private String description;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="categoryUuid")
+    private Category category;
 
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-    private List<Category> categories = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name="statusUuid", nullable = false)
+    private Status status;
 
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-    private List<Currency> currencies = new ArrayList<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Category> children;
 
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
-    private List<Quantity> quantities = new ArrayList<>();
-
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Product> products = new ArrayList<>();
 
     @PrePersist
@@ -62,4 +56,6 @@ public class Status {
     protected void onUpdate() {
         updateDate = LocalDateTime.now();
     }
+
+
 }
