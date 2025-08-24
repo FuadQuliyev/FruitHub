@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: dev
+      changes:
+        - insert:
+            tableName: quantities
+            columns:
+              - column:
+                  name: uuid
+                  valueComputed: "gen_random_uuid()"
+              - column:
+                  name: name
+                  value: "Litr"
+              - column:
+                  name: abbreviation
+                  value: "L"
+              - column:
+                  name: status_uuid
+                  value: "c1598a4f-81c3-4293-b53b-98a61f143263"
+              - column:
+                  name: create_date
+                  valueComputed: "NOW()"
+              - column:
+                  name: update_date
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: quantities
+            columns:
+              - column:
+                  name: uuid
+                  valueComputed: "gen_random_uuid()"
+              - column:
+                  name: name
+                  value: "Kiloqram"
+              - column:
+                  name: abbreviation
+                  value: "kq"
+              - column:
+                  name: status_uuid
+                  value: "c1598a4f-81c3-4293-b53b-98a61f143263"
+              - column:
+                  name: create_date
+                  valueComputed: "NOW()"
+              - column:
+                  name: update_date
+                  valueComputed: "NOW()"
