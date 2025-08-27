@@ -23,6 +23,7 @@ public class SecurityConfig{
                 .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/api/v1/account/**").permitAll()
                                 .requestMatchers("/api/v1/status/**").permitAll()
+                                .requestMatchers("/api/v1/category/**").permitAll()
                                 .requestMatchers("/error").permitAll()
                                 .anyRequest().authenticated()
                 )
