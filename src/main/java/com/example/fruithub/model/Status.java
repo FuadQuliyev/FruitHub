@@ -1,5 +1,6 @@
 package com.example.fruithub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -38,18 +39,23 @@ public class Status {
     private LocalDateTime updateDate;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Category> categories = new ArrayList<>();
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Currency> currencies = new ArrayList<>();
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Quantity> quantities = new ArrayList<>();
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
     @PrePersist

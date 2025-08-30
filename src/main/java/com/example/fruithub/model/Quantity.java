@@ -1,5 +1,6 @@
 package com.example.fruithub.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,7 @@ public class Quantity {
     private Status status;
 
     @OneToMany(mappedBy = "quantity", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
     @PrePersist

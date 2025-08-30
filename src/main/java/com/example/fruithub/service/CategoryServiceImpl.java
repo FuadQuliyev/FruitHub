@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService{
                 parentCategory = categoryRepository.findById(category.getCategoryUuid()).orElse(null);
             }
             Status status = statusRepository.findById(category.getStatusUuid())
-                    .orElseThrow(() -> new RuntimeException("Status not found"));;
+                    .orElseThrow(() -> new RuntimeException("Status not found"));
             Category newCategory = Category.builder()
                     .name(category.getName())
                     .description(category.getDescription())
